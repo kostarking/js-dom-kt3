@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог товаров</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #000;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 40px;
+        }
+        
+        li {
+            margin-bottom: 0;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            background-color: #a84545;
+            color: white;
+            padding: 12px 20px;
+            margin-bottom: 3px;
+            cursor: pointer;
+            user-select: none;
+            font-size: 16px;
+            border: none;
+            width: 250px;
+            text-align: left;
+        }
+        
+        .menu-item:hover {
+            background-color: #8a3838;
+        }
+        
+        .checkbox {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .checkbox.expanded::after {
+            content: '✓';
+            font-size: 12px;
+            color: white;
+        }
+        
+        .menu-item.no-children {
+            cursor: pointer;
+        }
+        
+        .submenu {
+            display: none;
+            list-style: none;
+            padding-left: 40px;
+        }
+        
+        .submenu.show {
+            display: block;
+        }
+        
+        .submenu li {
+            margin-bottom: 0;
+        }
+        
+        .level-1 {
+            padding-left: 0;
+        }
+        
+        .level-1 > li > .menu-item {
+            width: 250px;
+        }
+        
+        .level-2 > li > .menu-item {
+            width: 220px;
+        }
+        
+        .level-3 > li > .menu-item {
+            width: 240px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Каталог товаров</h1>
+    
+    <ul class="level-1">
+        <li>
+            <button class="menu-item" data-has-children="true">
+                <span class="checkbox"></span>
+                Книги
+            </button>
+            <ul class="submenu level-2">
+                <li>
+                    <button class="menu-item" data-has-children="true">
+                        <span class="checkbox"></span>
+                        Отечественные
+                    </button>
+                    <ul class="submenu level-3"></ul>
+                </li>
+                <li>
+                    <button class="menu-item" data-has-children="true">
+                        <span class="checkbox"></span>
+                        Зарубережные
+                    </button>
+                    <ul class="submenu level-3">
+                        <li>
+                            <button class="menu-item" data-has-children="false">
+                                <span class="checkbox"></span>
+                                Детективы
+                            </button>
+                        </li>
+                        <li>
+                            <button class="menu-item" data-has-children="false">
+                                <span class="checkbox"></span>
+                                Научная фантастика
+                            </button>
+                        </li>
+                        <li>
+                            <button class="menu-item" data-has-children="false">
+                                <span class="checkbox"></span>
+                                Исторические
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <button class="menu-item" data-has-children="true">
+                <span class="checkbox"></span>
+                DVD
+            </button>
+            <ul class="submenu level-2">
+                <li>
+                    <button class="menu-item" data-has-children="true">
+                        <span class="checkbox"></span>
+                        Отечественные
+                    </button>
+                    <ul class="submenu level-3"></ul>
+                </li>
+                <li>
+                    <button class="menu-item" data-has-children="true">
+                        <span class="checkbox"></span>
+                        Зарубережные
+                    </button>
+                    <ul class="submenu level-3">
+                        <li>
+                            <button class="menu-item" data-has-children="false">
+                                <span class="checkbox"></span>
+                                Детективы
+                            </button>
+                        </li>
+                        <li>
+                            <button class="menu-item" data-has-children="false">
+                                <span class="checkbox"></span>
+                                Научная фантастика
+                            </button>
+                        </li>
+                        <li>
+                            <button class="menu-item" data-has-children="false">
+                                <span class="checkbox"></span>
+                                Исторические
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+                
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+        document.querySelectorAll('.menu-item').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const hasChildren = this.getAttribute('data-has-children') === 'true';
+                const submenu = this.nextElementSibling;
+                const checkbox = this.querySelector('.checkbox');
+                
+                if (hasChildren && submenu && submenu.classList.contains('submenu')) {
+                    submenu.classList.toggle('show');
+                    checkbox.classList.toggle('expanded');
+                } else if (!hasChildren) {
+                    alert('This is a link item');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
